@@ -53,6 +53,12 @@ export type CopyImageDataOptions = {
   bytesPerRow?: number;
   /** Number or rows per image (needed if multiple images are being set) */
   rowsPerImage?: number;
+  /** Width of the region to copy (defaults to texture width) */
+  width?: number;
+  /** Height of the region to copy (defaults to texture height) */
+  height?: number;
+  /** Depth of the region to copy (defaults to texture depth) */
+  depth?: number;
   /** Start copying into offset x (default 0) */
   x?: number;
   /** Start copying into offset y (default 0) */
@@ -270,8 +276,8 @@ export abstract class Texture extends Resource<TextureProps> {
     if (!options_.bytesPerRow && !info.bytesPerPixel) {
       throw new Error(`bytesPerRow must be provided for texture format ${this.format}`);
     }
-    options.bytesPerRow = options_.bytesPerRow || width * (info.bytesPerPixel || 4);
-    options.rowsPerImage = options_.rowsPerImage || height;
+    options.bytesPerRow = options_.bytesPerRow || options.width * (info.bytesPerPixel || 4);
+    options.rowsPerImage = options_.rowsPerImage || options.height;
 
     // WebGL will error if we try to copy outside the bounds of the texture
     // options.width = Math.min(options.width, this.width - options.x);
@@ -311,6 +317,9 @@ export abstract class Texture extends Resource<TextureProps> {
     byteOffset: 0,
     bytesPerRow: undefined!,
     rowsPerImage: undefined!,
+    width: undefined!,
+    height: undefined!,
+    depth: undefined!,
     mipLevel: 0,
     x: 0,
     y: 0,

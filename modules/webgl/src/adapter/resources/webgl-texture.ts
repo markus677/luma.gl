@@ -142,7 +142,7 @@ export class WEBGLTexture extends Texture {
     const options = this._normalizeCopyImageDataOptions(options_);
 
     const typedArray = options.data as TypedArray;
-    const {width, height, depth} = this;
+    const {width, height, depth} = options;
     const {mipLevel = 0, byteOffset = 0, x = 0, y = 0, z = 0} = options;
     const {glFormat, glType, compressed} = this;
 

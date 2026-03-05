@@ -91,8 +91,8 @@ export class WebGPUTexture extends Texture {
   }
 
   copyImageData(options_: CopyImageDataOptions): void {
-    const {width, height, depth} = this;
     const options = this._normalizeCopyImageDataOptions(options_);
+    const {width, height, depth} = options;
     this.device.pushErrorScope('validation');
     this.device.handle.queue.writeTexture(
       // destination: GPUImageCopyTexture
